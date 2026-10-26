@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapReduce Word Count Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🐘 MapReduce Word Count Simulator</h1>
+    <p>See how Hadoop counts words: Split → Map → Combine → Shuffle → Reduce</p>
+  </header>
+
+  <main>
+    <section class="input-card">
+      <label class="field-label" for="textInput">Enter some text, or upload a .txt file</label>
+      <textarea id="textInput" rows="6" placeholder="Type or paste text here..."></textarea>
+
+      <div class="options">
+        <label class="opt">Mappers
+          <select id="mapperCount">
+            <option>1</option><option>2</option><option selected>3</option>
+            <option>4</option><option>5</option><option>6</option>
+          </select>
+        </label>
+        <label class="opt">Reducers
+          <select id="reducerCount">
+            <option>1</option><option selected>2</option><option>3</option><option>4</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="useCombiner"> Use combiner</label>
+        <label class="check"><input type="checkbox" id="removeStop"> Remove stop words</label>
+      </div>
+
+      <div class="buttons">
+        <button id="runBtn">Run MapReduce</button>
+        <label class="file-btn">Upload .txt
+          <input type="file" id="fileInput" accept=".txt,text/plain" hidden>
+        </label>
+        <button id="sampleBtn" class="secondary">Load Sample</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+      <p id="message" class="message"></p>
+    </section>
+
+    <section id="output" class="hidden">
+      <div class="stats">
+        <div class="stat"><span id="statMappers">0</span><small>Mappers</small></div>
+        <div class="stat"><span id="statReducers">0</span><small>Reducers</small></div>
+        <div class="stat"><span id="statWords">0</span><small>Total words</small></div>
+        <div class="stat"><span id="statUnique">0</span><small>Unique words</small></div>
+        <div class="stat"><span id="statShuffle">0</span><small>Shuffle records</small></div>
+      </div>
+      <div id="stages"></div>
+    </section>
+
+    <section class="about">
+      <h2>About MapReduce</h2>
+      <p>
+        MapReduce is the processing model of Hadoop. Big data is split into chunks, processed in parallel by
+        <b>mappers</b>, grouped by key in the <b>shuffle and sort</b> phase, and finally combined by
+        <b>reducers</b> into the final result.
+      </p>
+      <ul>
+        <li><b>Combiner:</b> a mini-reducer that runs inside each mapper to cut down the data sent over the network.</li>
+        <li><b>Partitioner:</b> decides which reducer gets which key, using hash(key) mod number of reducers.</li>
+        <li><b>Stop words:</b> very common words (the, is, and) that are often removed before counting.</li>
+      </ul>
+      <p>
+        <b>Hadoop vs Spark:</b> Hadoop MapReduce writes intermediate results to disk after each stage,
+        while Apache Spark keeps data in memory, which makes it much faster for iterative jobs.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built using concepts from Simplilearn: Introduction to Big Data Hadoop and Spark Developer</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
